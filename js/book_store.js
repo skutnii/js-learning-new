@@ -3,14 +3,13 @@ define(['search_controller', 'cart_controller'], function(SearchController, Cart
   function BookStore() {
     var self = this;
     this.searchController = new SearchController({
-      viewTag: "#search_view",
-      addCallback: function(book) {
+      addToCart: function(book) {
         self.addToCart(book);
       }
     });
+    this.searchController.view.appendTo("body");
 
     this.cartController = new CartController({
-      viewTag: "#cart_view"
     });
   };
 

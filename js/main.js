@@ -16,5 +16,5 @@ var app = null;
 // Start the main app logic.
 requirejs(['jquery', 'book_store'],
 function   ($, BookStore) {
-	app = new BookStore();
+    app = new BookStore();
 });

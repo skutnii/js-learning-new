@@ -5,10 +5,15 @@ define(['view_controller'], function(ViewController) {
   };
 
   CartController.prototype = new ViewController({
-    constructor:CartController,
     add: function(book, quantity) {
+    },
+    loadView: function(tag) {
+      //Stub
+      return {};
     }
   });
+
+  CartController.prototype.constructor = CartController;
 
   return CartController;
 });
