@@ -21,6 +21,10 @@ body {
   font-size: small;
 }
 
+.sale_info {
+  font-size: small;
+}
+
 #search_view {
   width: 50%;
 } 

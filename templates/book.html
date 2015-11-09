@@ -1,8 +1,17 @@
 <div class="book">
   <h4><%= book.title %></h4>
+
   <% if (typeof book.authors != 'undefined') {%>
     <p class='authors'><%= book.authors.join(', ') %></p>
   <% } %>
+
+  <% if (book.saleable) { %>
+    <p class="sale_info">
+      <%= typeof book.retailPrice != 'undefined' ? book.retailPrice.amount + " " + book.retailPrice.currencyCode + " " : ''%>
+      <button class="add_to_cart">Add to cart</button>
+    </p>
+  <% } %>
+
   <div class='book_description'>
     <img class='cover' src=<%= "\"" + book.thumbnail + "\"" %> >
     <%= book.description %>

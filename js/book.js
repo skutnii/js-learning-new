@@ -25,8 +25,7 @@ define(['jquery', 'extensible'], function($, Extensible) {
   module.parse = function(data) {
     var initOptions = {
       id: data.id,
-      saleable: false,
-      retailPrice: data.retailPrice
+      saleable: false
     };
 
     var vInfo = data.volumeInfo;
@@ -46,6 +45,7 @@ define(['jquery', 'extensible'], function($, Extensible) {
     if (typeof saleInfo != "undefined") {
       if (saleInfo.saleability == "FOR_SALE") {
         initOptions.saleable = true;
+        initOptions.retailPrice = saleInfo.retailPrice;
       }
     };
 
