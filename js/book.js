@@ -53,11 +53,13 @@ define(['jquery', 'extensible'], function($, Extensible) {
   };
 
   module.reportFailure = function(link) {
-    Console.log("Loading " + link + " failed.");
+    console.log("Loading " + link + " failed.");
   };
 
   module.get = function(id, callback) {
     var link = this.rootURL + '/' + id;
+
+    console.log(link);
 
     $.getJSON(link)
     .done(function(data) {
@@ -71,6 +73,8 @@ define(['jquery', 'extensible'], function($, Extensible) {
 
   module.find = function(query, callback) {
     var link = this.rootURL + '?q=' + query;
+
+    console.log(link);
 
     $.getJSON(link)
     .done(function(data) {
