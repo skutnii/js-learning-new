@@ -1,6 +1,6 @@
 define([], function() {
   function Extensible(hash) {
-    for (key in hash) {
+    for (var key in hash) {
       this[key] = hash[key];
     }
   };

@@ -1,0 +1,9 @@
+<div class="book">
+  <h4><%= book.title %></h4>
+  <% if (typeof book.authors != 'undefined') {%>
+    <p class='authors'><%= book.authors.join(', ') %></p>
+  <% } %>
+  <div class='book_description'>
+    <img class='cover' src=<%= "\"" + book.thumbnail + "\"" %> >
+    <%= book.description %>
+  </div>

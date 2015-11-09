@@ -5,7 +5,7 @@ define(['jquery', 'extensible'], function($, Extensible) {
   };
 
   function InternalBook(options) {
-    this.update(this.options);
+    this.update(options);
   };
 
   InternalBook.prototype = new Extensible({
@@ -25,17 +25,21 @@ define(['jquery', 'extensible'], function($, Extensible) {
   module.parse = function(data) {
     var initOptions = {
       id: data.id,
-      title: data.title,
-      subtitle: data.subtitle,
-      authors: data.authors,
-      description: data.description,
       saleable: false,
       retailPrice: data.retailPrice
     };
 
-    var imLinks = data.imageLinks;
+    var vInfo = data.volumeInfo;
+    if (typeof vInfo != 'undefined') {
+      initOptions.title = vInfo.title,
+      initOptions.subtitle = vInfo.subtitle,
+      initOptions.authors = vInfo.authors,
+      initOptions.description = vInfo.description
+    };
+
+    var imLinks = vInfo.imageLinks;
     if (typeof imLinks != "undefined") {
-      initOtions.thumbnail = imLinks.smallThumbnail;
+      initOptions.thumbnail = imLinks.smallThumbnail;
     };
 
     var saleInfo = data.saleInfo;
@@ -49,7 +53,7 @@ define(['jquery', 'extensible'], function($, Extensible) {
   };
 
   module.reportFailure = function(link) {
-      Console.log("Loading " + link + " failed.");
+    Console.log("Loading " + link + " failed.");
   };
 
   module.get = function(id, callback) {

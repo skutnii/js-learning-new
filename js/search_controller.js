@@ -1,4 +1,4 @@
-define(['view_controller', 'search_view'], function(ViewController, SearchView) {
+define(['view_controller', 'search_view', 'book'], function(ViewController, SearchView, Book) {
 
   function SearchController(options) {
     ViewController.call(this, options);
@@ -6,7 +6,11 @@ define(['view_controller', 'search_view'], function(ViewController, SearchView) 
 
   SearchController.prototype = new ViewController({
     getBooks: function(query) {
+      var self = this;
 
+      Book.find(query, function(books) {
+        self.view.updateWithBooks(books);
+      });
     },
 
     addToCart: function(book) {

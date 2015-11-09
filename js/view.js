@@ -14,27 +14,32 @@ define(['jquery', 'underscore', 'extensible'], function($, _, Extensible) {
   View.prototype = new Extensible({
     //Finds descendant elements by a jQuery selector 
     sub: function(tag) {
-      return $(this.getDOM()).find(tag);
+      return $(this.getHandle()).find(tag);
     },
 
     //Customization point. Redefine in derived objects
     onRender: function() {
     },
 
-    render: function(bindings) {
-      this.domHandle = document.createDocumentFragment();
+    //Customization point
+    defaultBindings: function() {
+      return {};
+    },
 
-      if (typeof bindings == 'undefined') {
-        bindings = {};
-      }
+    render: function(options) {
+      var bindings = this.defaultBindings();
+      for (var key in options) {
+        bindings[key] = options[key];
+      };
+
       var html = this.template(bindings);
 
-      $(this.domHandle).append(html);
+      this.domHandle = $(html);
 
       this.onRender();
     },
 
-    getDOM: function() {
+    getHandle: function() {
       if (typeof this.domHandle == 'undefined') {
         this.render();
       }
@@ -43,11 +48,11 @@ define(['jquery', 'underscore', 'extensible'], function($, _, Extensible) {
     },
 
     replace: function(selector) {
-      $(selector).replaceWith(this.getDOM());
+      this.domHandle = this.getHandle().replaceAll(selector);
     },
 
     appendTo: function(selector) {
-      $(selector).append(this.getDOM());
+      this.domHandle = this.getHandle().appendTo(selector);
     },
 
     //Customization point. redefine in derived objects
@@ -62,7 +67,7 @@ define(['jquery', 'underscore', 'extensible'], function($, _, Extensible) {
 
     addSubview: function(view) {
       this.subviews.push(view);
-      view.appendTo(this.getDOM());
+      view.appendTo(this.getHandle());
     },
 
     addSubviews: function(views) {
@@ -72,7 +77,7 @@ define(['jquery', 'underscore', 'extensible'], function($, _, Extensible) {
         view.appendTo(fragment);
       });
 
-      $(this.getDOM()).append(fragment);
+      $(this.getHandle()).append(fragment);
     },
 
     removeSubview: function(view) {
